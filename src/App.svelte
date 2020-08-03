@@ -1,5 +1,5 @@
 <script>
-  import { onMount, afterUpdate, beforeUpdate } from "svelte";
+  import { onMount, afterUpdate, beforeUpdate, onDestroy } from "svelte";
   import TranslationsList from "./TranslationsList/TranslationsListContainer.svelte";
 
   const discoveryDocs = [
@@ -35,6 +35,10 @@
 
   window.addEventListener("load", handleClientLoad);
 
+  onDestroy(() => {
+    window.removeEventListener("load", handleClientLoad);
+  });
+
   function handleSignIn() {
     gapi.auth2.getAuthInstance().signIn();
   }
@@ -43,10 +47,6 @@
     gapi.auth2.getAuthInstance().signOut();
   }
 </script>
-
-<style>
-
-</style>
 
 <main>
   {#if !isLoggedIn}
