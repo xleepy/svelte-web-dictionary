@@ -1,23 +1,7 @@
 <script>
   import { onMount, afterUpdate } from "svelte";
 
-  export let spreadsheetId;
-  export let range;
-
-  let data = [];
-
-  function getList() {
-    gapi.client.sheets.spreadsheets.values
-      .get({
-        spreadsheetId,
-        range,
-      })
-      .then(({ result }) => {
-        data = result.values.reverse();
-      });
-  }
-  onMount(getList);
-  afterUpdate(getList);
+  export let data;
 </script>
 
 <style>

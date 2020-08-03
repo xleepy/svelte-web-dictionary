@@ -3,12 +3,22 @@
   import { onMount } from "svelte";
   $: range = "";
   $: spreadsheetId = "";
-  let isSubmited = false;
+  let data = [];
+  function getList() {
+    gapi.client.sheets.spreadsheets.values
+      .get({
+        spreadsheetId,
+        range,
+      })
+      .then(({ result }) => {
+        data = result.values.reverse();
+      });
+  }
 
   function submit() {
-    isSubmited = true;
     localStorage.setItem("spreadSheetId", spreadsheetId);
     localStorage.setItem("range", range);
+    getList();
   }
 
   onMount(() => {
@@ -17,7 +27,7 @@
     if (cachedId && cachedRange) {
       spreadsheetId = cachedId;
       range = cachedRange;
-      isSubmited = true;
+      getList();
     }
   });
 </script>
@@ -26,7 +36,5 @@
   <input placeholder="Spreadsheet id" bind:value={spreadsheetId} />
   <input placeholder="range" bind:value={range} />
   <button on:click={submit}>Submit</button>
-  {#if isSubmited}
-    <List {spreadsheetId} {range} />
-  {/if}
+  <List {data} />
 </div>
