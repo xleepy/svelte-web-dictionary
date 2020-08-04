@@ -1,6 +1,4 @@
 <script>
-  import { onMount, afterUpdate } from "svelte";
-
   export let data;
 </script>
 

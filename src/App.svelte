@@ -5,7 +5,7 @@
   const discoveryDocs = [
     "https://sheets.googleapis.com/$discovery/rest?version=v4",
   ];
-  const SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
+  const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
   let isLoggedIn = false;
 
@@ -19,7 +19,7 @@
         apiKey: process.env.API_KEY,
         clientId: process.env.CLIENT_ID,
         discoveryDocs,
-        scope: SCOPES,
+        scope,
       })
       .then(() => {
         // Listen for sign-in state changes.
