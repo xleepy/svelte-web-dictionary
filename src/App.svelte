@@ -1,15 +1,15 @@
 <script>
-  import { onMount, afterUpdate, beforeUpdate, onDestroy } from "svelte";
-  import TranslationsList from "./TranslationsList/TranslationsListContainer.svelte";
+  import { onMount, afterUpdate, beforeUpdate, onDestroy } from 'svelte';
+  import TranslationsList from './TranslationsList/TranslationsListContainer.svelte';
 
   const discoveryDocs = [
-    "https://sheets.googleapis.com/$discovery/rest?version=v4",
+    'https://sheets.googleapis.com/$discovery/rest?version=v4',
   ];
-  const scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+  const scope = 'https://www.googleapis.com/auth/spreadsheets';
 
   let isLoggedIn = false;
 
-  function updateSignInStatus(isSignedIn) {
+  function updateSignInStatus(isSignedIn = false) {
     isLoggedIn = isSignedIn;
   }
 
@@ -30,13 +30,13 @@
   }
 
   function handleClientLoad() {
-    gapi.load("client:auth2", initClient);
+    gapi.load('client:auth2', initClient);
   }
 
-  window.addEventListener("load", handleClientLoad);
+  window.addEventListener('load', handleClientLoad);
 
   onDestroy(() => {
-    window.removeEventListener("load", handleClientLoad);
+    window.removeEventListener('load', handleClientLoad);
   });
 
   function handleSignIn() {
@@ -51,8 +51,7 @@
 <main>
   {#if !isLoggedIn}
     <button on:click={handleSignIn}>Login</button>
-  {/if}
-  {#if isLoggedIn}
+  {:else}
     <button on:click={handleSignOut}>Logout</button>
     <TranslationsList />
   {/if}
