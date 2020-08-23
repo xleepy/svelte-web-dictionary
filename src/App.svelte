@@ -13,9 +13,8 @@
     isLoggedIn = isSignedIn;
   }
 
-  console.log(process.env);
-
   function initClient() {
+    console.log(process.env.API_KEY);
     gapi.client
       .init({
         apiKey: process.env.API_KEY,
