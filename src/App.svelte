@@ -13,6 +13,8 @@
     isLoggedIn = isSignedIn;
   }
 
+  console.log(process.env);
+
   function initClient() {
     gapi.client
       .init({
