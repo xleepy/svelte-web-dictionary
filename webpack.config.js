@@ -1,10 +1,16 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 const DotEnv = require('dotenv-webpack');
+
+const BUILD_DIR = 'dist';
 
 module.exports = {
   entry: {
@@ -19,7 +25,7 @@ module.exports = {
     mainFields: ['svelte', 'browser', 'module', 'main'],
   },
   output: {
-    path: __dirname + '/public',
+    path: path.resolve(__dirname, BUILD_DIR),
     filename: '[name].js',
     chunkFilename: '[name].[id].js',
   },
@@ -52,6 +58,12 @@ module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/index.html'),
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: './public/global.css', to: 'global.css' }],
     }),
     new DotEnv({
       systemvars: process.env.NODE_ENV === 'production',

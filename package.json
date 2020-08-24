@@ -19,6 +19,10 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "start:dev": "webpack-dev-server --port 8000 --content-base public",
-    "start:production": "serve public"
+    "start:production": "serve dist"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^6.0.3",
+    "html-webpack-plugin": "^4.3.0"
   }
 }
